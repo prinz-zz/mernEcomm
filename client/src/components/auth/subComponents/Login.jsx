@@ -1,11 +1,15 @@
+import { Link } from 'react-router-dom';
+
 export default function Login() {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm mx-auto">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h1 className="text-3xl font-bold tracking-tight text-center text-white">
+            <div className=" bg-black rounded-full w-20 h-20 flex justify-center items-center mx-auto">
               <sub>Buy</sub>It
-            </h1>
+            </div>
+          </h1>
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
@@ -69,11 +73,10 @@ export default function Login() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <a
-              href="#"
+            <Link to={'/signup'}              
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Start a 14 day free trial
-            </a>
+              Create an account
+            </Link>
           </p>
         </div>
       </div>
