@@ -1,7 +1,8 @@
 import { Fragment, useState } from "react";
+import { Link } from "react-router-dom";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import Pagination from '../pagination/Pagination';
+import Pagination from "../../pagination/Pagination";
 import {
   ChevronDownIcon,
   FunnelIcon,
@@ -60,7 +61,6 @@ const products = [
   {
     id: 1,
     name: "Basic Tee",
-    href: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
@@ -70,7 +70,6 @@ const products = [
   {
     id: 2,
     name: "Basic Tee",
-    href: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
@@ -80,7 +79,6 @@ const products = [
   {
     id: 3,
     name: "Basic Tee",
-    href: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
@@ -90,7 +88,6 @@ const products = [
   {
     id: 4,
     name: "Basic Tee",
-    href: "#",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
@@ -154,7 +151,6 @@ export default function Productlist() {
                     {/* Filters */}
                     <form className="mt-4 border-t border-gray-200">
                       <h3 className="sr-only">Categories</h3>
-                      
 
                       {filters.map((section) => (
                         <Disclosure
@@ -284,12 +280,11 @@ export default function Productlist() {
             </div>
 
             <section aria-labelledby="products-heading" className="pb-24 pt-6">
-              
               <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
                 {/* Filters */}
                 <form className="hidden lg:block">
                   <h3 className="sr-only">Categories</h3>
-                  
+
                   {filters.map((section) => (
                     <Disclosure
                       as="div"
@@ -350,9 +345,10 @@ export default function Productlist() {
                 <div className="lg:col-span-3">
                   {/* this is product list */}
                   <div className="bg-white">
-                      <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-                        {products.map((product) => (
-                          <div key={product.id} className="group relative">
+                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                      {products.map((product) => (
+                        <div key={product.id} className="group relative">
+                          <Link to="/product-details">
                             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                               <img
                                 src={product.imageSrc}
@@ -363,13 +359,11 @@ export default function Productlist() {
                             <div className="mt-4 flex justify-between">
                               <div>
                                 <h3 className="text-sm text-gray-700">
-                                  <a href={product.href}>
-                                    <span
-                                      aria-hidden="true"
-                                      className="absolute inset-0"
-                                    />
-                                    {product.name}
-                                  </a>
+                                  <span
+                                    aria-hidden="true"
+                                    className="absolute inset-0"
+                                  />
+                                  {product.name}
                                 </h3>
                                 <p className="mt-1 text-sm text-gray-500">
                                   {product.color}
@@ -379,14 +373,15 @@ export default function Productlist() {
                                 {product.price}
                               </p>
                             </div>
-                          </div>
-                        ))}
-                      </div>
+                          </Link>
+                        </div>
+                      ))}
                     </div>
                   </div>
+                </div>
               </div>
             </section>
-            <Pagination/>
+            <Pagination />
           </main>
         </div>
       </div>
