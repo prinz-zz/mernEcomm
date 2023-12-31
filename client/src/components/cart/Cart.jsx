@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { Link } from 'react-router-dom';
 
 const products = [
   {
@@ -36,11 +37,10 @@ export default function Example() {
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 bg-white">
-      
         <div className="px-4 py-6 sm:px-6">
-        <h1 className="text-4xl my-12 font-bold tracking-tight text-gray-900">
-          Cart
-        </h1>
+          <h1 className="text-4xl my-12 font-bold tracking-tight text-gray-900">
+            Cart
+          </h1>
           <div className="flow-root">
             <ul role="list" className="-my-6 divide-y divide-gray-200">
               {products.map((product) => (
@@ -66,7 +66,13 @@ export default function Example() {
                       </p>
                     </div>
                     <div className="flex flex-1 items-end justify-between text-sm">
-                      <p className="text-gray-500">Qty {product.quantity}</p>
+                      <div className="text-gray-500 flex gap-3 items-center">
+                       <label>Quantity</label>
+                        <select>
+                          <option>1</option>
+                          <option>2</option>
+                        </select>
+                      </div>
 
                       <div className="flex">
                         <button
@@ -100,7 +106,8 @@ export default function Example() {
           </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
-              or {" "}
+              or{" "}
+              <Link to='/'>
               <button
                 type="button"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -108,6 +115,7 @@ export default function Example() {
                 Continue Shopping
                 <span aria-hidden="true"> &rarr;</span>
               </button>
+              </Link>
             </p>
           </div>
         </div>
