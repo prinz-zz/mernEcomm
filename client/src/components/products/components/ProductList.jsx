@@ -5,11 +5,12 @@ import { XMarkIcon, StarIcon } from "@heroicons/react/24/outline";
 import Pagination from "../../pagination/Pagination";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { ITEMS_PER_PAGE } from '../../../constants.js';
+import { ITEMS_PER_PAGE } from "../../../constants.js";
 import {
   fetchAllProductsAsync,
   fetchProductsByFiltersAsync,
   selectAllProducts,
+  selectTotalItems,
 } from "../ProductSlice.js";
 
 import {
@@ -214,11 +215,10 @@ export default function Productlist() {
   const [page, setPage] = useState(1);
 
   const products = useSelector(selectAllProducts);
+  const totalItems = useSelector(selectTotalItems);
   const dispatch = useDispatch();
 
   //console.log(products);
-
-  
 
   // useEffect(() => {
   //   const fetchAllProducts = async () => {
@@ -239,48 +239,50 @@ export default function Productlist() {
   };
   cats();
 
-
   //handle filtering
   const handleFilter = (e, section, option) => {
     console.log(e.target.checked);
-    
-    const newFilter = {...filter};
-    if(e.target.checked){
-        if(newFilter[section.id]){
-          newFilter[section.id].push(option.value);
-        }else{
-          newFilter[section.id] = [option.value];
-        }
-        
-    }else{
-        const index = newFilter[section.id].findIndex((el)=> el === option.value);
-        newFilter[section.id].splice(index,1)
+
+    const newFilter = { ...filter };
+    if (e.target.checked) {
+      if (newFilter[section.id]) {
+        newFilter[section.id].push(option.value);
+      } else {
+        newFilter[section.id] = [option.value];
+      }
+    } else {
+      const index = newFilter[section.id].findIndex(
+        (el) => el === option.value
+      );
+      newFilter[section.id].splice(index, 1);
     }
 
-    setFilter(newFilter);    
-    console.log({newFilter});
+    setFilter(newFilter);
+    console.log({ newFilter });
   };
 
   //handle sorting
   const handleSort = (e, option) => {
-    const sort = {  _sort: option.sort, _order: option.order };
+    const sort = { _sort: option.sort, _order: option.order };
     setSort(sort);
-    console.log({sort});
+    console.log({ sort });
   };
 
   //handle pagination
-  const handlePage = (e, page) => {
-    const sort = {  _sort: option.sort, _order: option.order };
+  const handlePage = (page) => {
+    console.log({ page });
     setPage(page);
-    console.log({page});
   };
 
-  
   useEffect(() => {
-    const pagination = {_page: page, _limit: ITEMS_PER_PAGE }
-    dispatch(fetchProductsByFiltersAsync(filter, sort, pagination));
+    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
   }, [dispatch, filter, sort, page]);
-  
+
+  useEffect(()=>{
+    setPage(1);
+  },[totalItems, sort])
+  console.log(totalItems);
 
   return (
     <>
@@ -368,7 +370,13 @@ export default function Productlist() {
                 <ProductGrid products={products} />
               </div>
             </section>
-            <Pagination page={page} setPage={setPage} handlePage={handlePage} ITEMS_PER_PAGE={ITEMS_PER_PAGE}/>
+            <Pagination
+              page={page}
+              setPage={setPage}
+              handlePage={handlePage}
+              ITEMS_PER_PAGE={ITEMS_PER_PAGE}
+              totalItems={totalItems}
+            />
           </main>
         </div>
       </div>
