@@ -8,6 +8,16 @@ export const fetchAllProducts = () =>{
     });
 }
 
+
+export const fetchProductsById = (id) =>{
+    return new Promise(async (resolve)=>{
+        const response = await fetch("http://localhost:4444/products/"+id)
+        const data = await response.json()
+        resolve({data})
+    });
+}
+
+
 export const fetchProductsByFilters = (filter, sort, pagination) =>{
     //filter = {"category" :["smartphones",""laptops"]}
     //sort = {_sort: "price", _order: "desc"}
@@ -23,12 +33,12 @@ export const fetchProductsByFilters = (filter, sort, pagination) =>{
         }       
     }    
 
-    console.log(sort);
+    //console.log(sort);
     for(let key in sort){
         queryString += `${key}=${sort[key]}&`
     }
     
-    console.log(pagination);
+    //console.log(pagination);
     for (let key in pagination) {
         queryString += `${key}=${pagination[key]}&`;
       }
@@ -41,4 +51,21 @@ export const fetchProductsByFilters = (filter, sort, pagination) =>{
         resolve({data:{products:data, totalItems:+totalItems}})
     });
     
+}
+
+
+export const fetchCategories = () =>{
+    return new Promise(async (resolve)=>{
+        const response = await fetch("http://localhost:4444/categories")
+        const data = await response.json()
+        resolve({data})
+    });
+}
+
+export const fetchBrands = () =>{
+    return new Promise(async (resolve)=>{
+        const response = await fetch("http://localhost:4444/brands")
+        const data = await response.json()
+        resolve({data})
+    });
 }
