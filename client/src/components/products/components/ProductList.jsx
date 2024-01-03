@@ -47,6 +47,7 @@ export default function Productlist() {
   const brands = useSelector(selectBrands);
   const categories = useSelector(selectCategories);
   const dispatch = useDispatch();
+ 
 
   const filters = [
     {

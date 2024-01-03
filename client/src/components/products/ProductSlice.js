@@ -34,8 +34,8 @@ export const fetchProductsByFiltersAsync = createAsyncThunk(
 
 export const fetchProductsByIdAsync = createAsyncThunk(
     "products/fetchProductsById",
-    async ({ filter, sort, pagination }) => {
-      const response = await fetchProductsById();
+    async (id) => {
+      const response = await fetchProductsById(id);
       return response.data;
     }
   );
@@ -96,8 +96,9 @@ export const productSlice = createSlice({
       })
       .addCase(fetchProductsByIdAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        state.fetchProductsById = action.payload;
+        state.selectedProduct = action.payload;
       })
+      
   },
 });
 

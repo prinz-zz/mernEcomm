@@ -11,7 +11,7 @@ export const fetchAllProducts = () =>{
 
 export const fetchProductsById = (id) =>{
     return new Promise(async (resolve)=>{
-        const response = await fetch("http://localhost:4444/products/"+id)
+        const response = await fetch(`http://localhost:4444/products/${id}`)
         const data = await response.json()
         resolve({data})
     });
